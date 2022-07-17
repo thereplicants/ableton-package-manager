@@ -12,7 +12,8 @@
 		"build": "tsc && chmod +x dist/cli.js",
 		"start": "npm run build && dist/cli.js",
 		"pretest": "npm run build",
-		"test": "xo && ava"
+		"test": "xo && ava",
+		"watch": "watch 'npm run build' source"
 	},
 	"files": [
 		"dist/cli.js"
@@ -49,6 +50,7 @@
 		"eslint-plugin-react-hooks": "^4.6.0",
 		"ink-testing-library": "^2.1.0",
 		"typescript": "^4.7.4",
+		"watch": "^1.0.2",
 		"xo": "^0.39.1"
 	}
 }
