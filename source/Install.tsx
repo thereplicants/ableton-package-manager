@@ -1,9 +1,9 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Text } from 'ink';
 import hostedGitInfo from 'hosted-git-info';
 import helpText from './helpText';
 
-const Install: FC<{ input?: string[] }> = ({ input }) => {
+function Install({ input = [] }: { input?: string[] }) {
   const inputUrl = input?.[0];
   if (!inputUrl) {
     return <Text>{helpText}</Text>;
@@ -18,11 +18,7 @@ const Install: FC<{ input?: string[] }> = ({ input }) => {
     return <Text color="red">{error}</Text>;
   }
 
-  return (
-    <>
-      <Text>Install {gitUrl}</Text>
-    </>
-  );
-};
+  return <Text>Install {gitUrl}</Text>;
+}
 
 export default Install;

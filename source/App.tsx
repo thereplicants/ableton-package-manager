@@ -1,22 +1,25 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { Text } from 'ink';
 import Gradient from 'ink-gradient';
 import BigText from 'ink-big-text';
-import { TypedFlags } from 'meow';
 import Install from './Install';
 import helpText from './helpText';
 
 const isDev = false;
 const log = (string: string) => {
+  // eslint-disable-next-line no-console
   if (isDev) console.info(string);
 };
 
-const App: FC<{
+function App({
+  input = [],
+}: // flags = {},
+{
   input?: string[];
-  flags?: TypedFlags<{ name: { type: 'string' } }>;
-}> = ({ input, flags }) => {
+  // flags?: AppFlags;
+}) {
   log(`input: ${JSON.stringify(input)}`);
-  log(`flags: ${JSON.stringify(flags)}`);
+  // log(`flags: ${JSON.stringify(flags)}`);
 
   const availableCommands = ['install', 'update'];
   const commandMatch = !!input?.find((command) =>
@@ -41,7 +44,6 @@ const App: FC<{
       {input?.[0] === 'install' && <Install input={input.splice(1)} />}
     </>
   );
-};
+}
 
-module.exports = App;
 export default App;

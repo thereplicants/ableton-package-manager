@@ -6,11 +6,7 @@ import App from './App';
 import helpText from './helpText';
 
 const cli = meow(helpText, {
-  flags: {
-    name: {
-      type: 'string',
-    },
-  },
+  flags: {},
 });
 
-render(<App input={cli.input} flags={cli.flags} />);
+render(<App input={cli.input} /* flags={cli.flags} */ />);
