@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from 'ink';
 import meow from 'meow';
 import App from './App';
-import helpText from './helpText';
+import { helpText } from './lib/messages';
 
 const cli = meow(helpText, {
   flags: {},

@@ -3,7 +3,7 @@ import { Text } from 'ink';
 import Gradient from 'ink-gradient';
 import BigText from 'ink-big-text';
 import Install from './Install';
-import helpText from './helpText';
+import { helpText } from './lib/messages';
 
 const isDev = false;
 const log = (string: string) => {
