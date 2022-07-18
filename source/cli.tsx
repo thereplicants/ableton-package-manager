@@ -1,28 +1,28 @@
 #!/usr/bin/env node
-import React from "react";
-import { render } from "ink";
-import meow from "meow";
-import App from "./ui";
+import React from 'react';
+import { render } from 'ink';
+import meow from 'meow';
+import App from './ui';
 
 const cli = meow(
-	`
-	Usage
-	  $ apm
+  `
+  Usage
+    $ apm
 
-	Options
-		--name  Your name
+  Options
+    --name  Your name
 
-	Examples
-	  $ apm --name=Jane
-	  Hello, Jane
+  Examples
+    $ apm --name=Jane
+    Hello, Jane
 `,
-	{
-		flags: {
-			name: {
-				type: "string",
-			},
-		},
-	}
+  {
+    flags: {
+      name: {
+        type: 'string',
+      },
+    },
+  },
 );
 
 render(<App name={cli.flags.name} />);
