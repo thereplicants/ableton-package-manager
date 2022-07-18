@@ -2,16 +2,29 @@ import React from 'react';
 import chalk from 'chalk';
 import test from 'ava';
 import { render } from 'ink-testing-library';
-import App from './ui';
+import { TypedFlags } from 'meow';
+import App from './App';
 
-test('greet unknown user', (t) => {
+test('show help test with no arguments', (t) => {
   const { lastFrame } = render(<App />);
 
-  t.is(lastFrame(), chalk`Hello, {green Stranger}`);
+  t.is(
+    lastFrame(),
+    chalk`Installed \`thereplicants/max-node\` in \`User Library/Packages/\``,
+  );
 });
 
-test('greet user with a name', (t) => {
-  const { lastFrame } = render(<App name="Jane" />);
+test('show help test with no arguments', (t) => {
+  const { lastFrame } = render(
+    <App
+      flags={
+        { help: true } as unknown as TypedFlags<{ name: { type: 'string' } }>
+      }
+    />,
+  );
 
-  t.is(lastFrame(), chalk`Hello, {green Jane}`);
+  t.is(
+    lastFrame(),
+    chalk`Installed \`thereplicants/max-node\` in \`User Library/Packages/\``,
+  );
 });

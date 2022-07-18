@@ -3,8 +3,8 @@ const helpText = `
     $ apm install <git-repository>
 
   Examples
-    $ apm --name=Rick
-    Hello, Rick
+    $ apm install thereplicants/max-node
+    Installed \`thereplicants/max-node\` in \`User Library/Packages/\`
 `;
 
 export default helpText;
