@@ -3,26 +3,14 @@ import React from 'react';
 import { render } from 'ink';
 import meow from 'meow';
 import App from './App';
+import helpText from './helpText';
 
-const cli = meow(
-  `
-  Usage
-    $ apm
-
-  Options
-    --name  Your name
-
-  Examples
-    $ apm --name=Jane
-    Hello, Jane
-`,
-  {
-    flags: {
-      name: {
-        type: 'string',
-      },
+const cli = meow(helpText, {
+  flags: {
+    name: {
+      type: 'string',
     },
   },
-);
+});
 
-render(<App name={cli.flags.name} />);
+render(<App input={cli.input} flags={cli.flags} />);
