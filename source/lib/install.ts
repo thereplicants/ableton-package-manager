@@ -77,6 +77,8 @@ export default async function install({ inputUrl }: { inputUrl: string }) {
     );
   }
 
+  // TODO: Run `npm install` if package.json exists
+
   const successMessage = `Installed ${gitUrl} in ${shortPackagesPath}`;
 
   return successMessage;

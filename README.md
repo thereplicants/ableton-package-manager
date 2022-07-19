@@ -55,4 +55,4 @@ npm run watch
 
 ## Roadmap
 
-The next idea is to have an `apm.yml` file in an Ableton Set, so you can run apm install there and get all the dependencies.
+The next idea is to have an `apm.yml` file in an Ableton Set, so you can run apm install there and get all the dependencies. This would allow collaborators to ensure they have the right dependencies. There should also be a Max for Live .amxd device that allows collaborators to install without the CLI.
