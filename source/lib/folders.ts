@@ -26,6 +26,10 @@ export async function getUserLibraryPath() {
   const configXml = await readFile(fileName);
   const config = await xml2js.parseStringPromise(configXml);
   const path = `${config.Ableton.ContentLibrary[0].UserLibrary[0].LibraryProject[0].ProjectPath[0].$.Value}/${config.Ableton.ContentLibrary[0].UserLibrary[0].LibraryProject[0].ProjectName[0].$.Value}`;
+  // TODO: Check if this works when the user hasn't set a custom User Library
+  // location, in which case we can fallback to Ableton's defaults:
+  // - Windows: \Users\[username]\Documents\Ableton\User Library
+  // - Mac: /Users/[username]/Music/Ableton/User Library
 
   return path;
 }

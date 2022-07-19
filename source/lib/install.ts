@@ -6,6 +6,9 @@ import { simpleGit } from 'simple-git';
 import replaceHomedir from 'replace-homedir';
 import { getPackagesPath, getUserLibraryPath } from './folders';
 
+// TODO: Add support for `apm install <package> in an Live Set, which could
+// save dependencies to an `apm.yml` file in that Live Set, and enable
+// an `apm install` command in the Live Set to install it's dependencies.
 export default async function install({ inputUrl }: { inputUrl: string }) {
   const gitInfo = hostedGitInfo.fromUrl(inputUrl);
   const { project } = gitInfo || {};
@@ -47,6 +50,7 @@ export default async function install({ inputUrl }: { inputUrl: string }) {
   }
 
   try {
+    // TODO: Consider using a blobless clone to improve initial clone speed
     await simpleGit({ baseDir: packagesPath }).clone(gitUrl);
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : '';
