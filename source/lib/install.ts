@@ -1,6 +1,7 @@
 import { access, mkdir } from 'node:fs/promises';
 import { constants } from 'node:fs';
 import { join } from 'node:path';
+import { execSync } from 'node:child_process';
 import hostedGitInfo from 'hosted-git-info';
 import { simpleGit } from 'simple-git';
 import replaceHomedir from 'replace-homedir';
@@ -12,7 +13,24 @@ import { getPackagesPath, getUserLibraryPath } from './folders';
 export default async function install({ inputUrl }: { inputUrl: string }) {
   const gitInfo = hostedGitInfo.fromUrl(inputUrl);
   const { project } = gitInfo || {};
-  const gitUrl = gitInfo?.ssh().replace(/^git\+/, '');
+  // TODO: add flag for gitProtocol
+  let gitProtocol: 'https' | 'ssh' = 'https';
+
+  // Use protocol from `gh` config if present
+  try {
+    const ghGitProtocol =
+      execSync('gh config list')
+        .toString()
+        .split('\n')
+        .map((config) => config.toString().trim())
+        .find((config) => config.startsWith('git_protocol='))
+        ?.replace('git_protocol=', '') ?? gitProtocol;
+    gitProtocol = ghGitProtocol === 'ssh' ? 'ssh' : gitProtocol;
+  } catch (e) {
+    // gh not installed
+  }
+
+  const gitUrl = gitInfo?.[gitProtocol]().replace(/^git\+/, '');
   if (!gitUrl || !project) {
     throw new Error(`Could not find git repo ${inputUrl}`);
   }
