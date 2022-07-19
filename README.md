@@ -7,7 +7,7 @@
 ## Install
 
 ```sh
-$ npm install -g apm
+npm install -g ableton-package-manager
 ```
 
 ## CLI
@@ -31,7 +31,6 @@ $ apm --help
       Ableton packages in ~/Dropbox/Music/Live User Library/Packages
       Name      URL                                        Path
       max-node  https://github.com/thereplicants/max-node  ~/Dropbox/Music/Live User Library/Packages/max-node
-
 ```
 
 ## Contributing
@@ -53,3 +52,7 @@ Build and watch for changes:
 ```sh
 npm run watch
 ```
+
+## Roadmap
+
+The next idea is to have an `apm.yml` file in an Ableton Set, so you can run apm install there and get all the dependencies.
