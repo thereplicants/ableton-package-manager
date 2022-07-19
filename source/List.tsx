@@ -5,9 +5,9 @@ import list from './lib/list';
 
 function List() {
   const [packagesPath, setPackagesPath] = useState('');
-  const [packages, setPackages] = useState<{ name: string; path: string }[]>(
-    [],
-  );
+  const [packages, setPackages] = useState<
+    { name: string; path: string; url?: string }[]
+  >([]);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
@@ -31,7 +31,10 @@ function List() {
   return (
     <>
       <Text>{`Ableton packages in ${packagesPath}`}</Text>
-      <Table data={packages} />
+      <Table
+        data={packages.map((p) => ({ Name: p.name, URL: p.url, Path: p.path }))}
+        columns={['Name', 'URL', 'Path']}
+      />
     </>
   );
 }
