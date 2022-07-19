@@ -3,6 +3,7 @@ import { Text } from 'ink';
 import Gradient from 'ink-gradient';
 import BigText from 'ink-big-text';
 import Install from './Install';
+import List from './List';
 import { helpText } from './lib/messages';
 
 const isDev = false;
@@ -21,7 +22,7 @@ function App({
   log(`input: ${JSON.stringify(input)}`);
   // log(`flags: ${JSON.stringify(flags)}`);
 
-  const availableCommands = ['install', 'update'];
+  const availableCommands = ['install', 'list', 'update'];
   const commandMatch = !!input?.find((command) =>
     availableCommands.includes(command),
   );
@@ -42,6 +43,7 @@ function App({
         </>
       )}
       {input?.[0] === 'install' && <Install input={input.splice(1)} />}
+      {input?.[0] === 'list' && <List />}
     </>
   );
 }

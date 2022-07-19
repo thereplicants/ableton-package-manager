@@ -1,5 +1,6 @@
 // @ts-nocheck
-import { readdir, readFile } from 'node:fs/promises';
+import { access, readdir, readFile } from 'node:fs/promises';
+import { constants } from 'node:fs';
 import { join } from 'node:path';
 import { homedir } from 'node:os';
 import xml2js from 'xml2js';
@@ -12,7 +13,7 @@ import { compare } from 'semver';
 // User Library:
 // - Windows: \Users\[username]\Documents\Ableton\User Library
 // - Mac: Macintosh HD/Users/[username]/Music/Ableton/User Library
-const getUserLibraryPath = async () => {
+export async function getUserLibraryPath() {
   const abletonPath = `${homedir()}/Library/Preferences/Ableton/`;
   const files = await readdir(abletonPath, { withFileTypes: true });
   const folder = files
@@ -27,7 +28,33 @@ const getUserLibraryPath = async () => {
   const path = `${config.Ableton.ContentLibrary[0].UserLibrary[0].LibraryProject[0].ProjectPath[0].$.Value}/${config.Ableton.ContentLibrary[0].UserLibrary[0].LibraryProject[0].ProjectName[0].$.Value}`;
 
   return path;
-};
+}
 
-// eslint-disable-next-line import/prefer-default-export
-export { getUserLibraryPath };
+export async function getPackagesPath(userLibraryArg) {
+  const userLibraryPath = userLibraryArg ?? (await getUserLibraryPath());
+  return join(userLibraryPath, 'Packages');
+}
+
+export async function getPackagesFolders(userLibraryArg) {
+  const userLibraryPath = userLibraryArg ?? (await getUserLibraryPath());
+  const packagesPath = await getPackagesPath(userLibraryPath);
+
+  try {
+    await access(packagesPath, constants.R_OK);
+  } catch (e) {
+    const errorMessage = e instanceof Error ? e.message : '';
+    throw new Error(
+      `Could not read directory '${packagesPath}'. ${errorMessage}`,
+    );
+  }
+
+  const files = await readdir(packagesPath, { withFileTypes: true });
+  const folders = files
+    .filter((file) => file.isDirectory())
+    .map((folder) => ({
+      name: folder.name,
+      path: join(packagesPath, folder.name),
+    }));
+
+  return folders;
+}

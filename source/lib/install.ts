@@ -1,9 +1,8 @@
 import { access, mkdir } from 'node:fs/promises';
 import { constants } from 'node:fs';
-import { join } from 'node:path';
 import hostedGitInfo from 'hosted-git-info';
 import { simpleGit } from 'simple-git';
-import { getUserLibraryPath } from './abletonConfig';
+import { getPackagesPath, getUserLibraryPath } from './folders';
 
 export default async function install({ inputUrl }: { inputUrl: string }) {
   const gitUrl = hostedGitInfo
@@ -15,7 +14,7 @@ export default async function install({ inputUrl }: { inputUrl: string }) {
   }
 
   const userLibraryPath = await getUserLibraryPath();
-  const packagesPath = join(userLibraryPath, 'Packages');
+  const packagesPath = await getPackagesPath(userLibraryPath);
 
   try {
     await access(userLibraryPath, constants.R_OK);
