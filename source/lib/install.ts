@@ -3,18 +3,20 @@ import { constants } from 'node:fs';
 import { join } from 'node:path';
 import hostedGitInfo from 'hosted-git-info';
 import { simpleGit } from 'simple-git';
+import replaceHomedir from 'replace-homedir';
 import { getPackagesPath, getUserLibraryPath } from './folders';
 
 export default async function install({ inputUrl }: { inputUrl: string }) {
   const gitInfo = hostedGitInfo.fromUrl(inputUrl);
-  const { project } = gitInfo as any;
+  const { project } = gitInfo || {};
   const gitUrl = gitInfo?.ssh().replace(/^git\+/, '');
-  if (!gitUrl) {
-    throw new Error(`Could not find git repo '${inputUrl}'`);
+  if (!gitUrl || !project) {
+    throw new Error(`Could not find git repo ${inputUrl}`);
   }
 
   const userLibraryPath = await getUserLibraryPath();
   const packagesPath = await getPackagesPath(userLibraryPath);
+  const shortPackagesPath = replaceHomedir(packagesPath, '~');
 
   try {
     await access(userLibraryPath, constants.R_OK);
@@ -29,7 +31,7 @@ export default async function install({ inputUrl }: { inputUrl: string }) {
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : '';
     throw new Error(
-      `Could not create directory '${packagesPath}'. ${errorMessage}`,
+      `Could not create directory ${shortPackagesPath}. ${errorMessage}`,
     );
   }
 
@@ -41,7 +43,7 @@ export default async function install({ inputUrl }: { inputUrl: string }) {
     projectFolderExists = false;
   }
   if (projectFolderExists) {
-    throw new Error(`'${project}' already exists in '${packagesPath}'`);
+    throw new Error(`${project} already exists in ${shortPackagesPath}`);
   }
 
   try {
@@ -49,11 +51,11 @@ export default async function install({ inputUrl }: { inputUrl: string }) {
   } catch (e) {
     const errorMessage = e instanceof Error ? e.message : '';
     throw new Error(
-      `Could not install '${gitUrl}' to '${packagesPath}'. ${errorMessage}`,
+      `Could not install ${gitUrl} to ${shortPackagesPath}. ${errorMessage}`,
     );
   }
 
-  const successMessage = `Installed '${gitUrl}' in '${packagesPath}'`;
+  const successMessage = `Installed ${gitUrl} in ${shortPackagesPath}`;
 
   return successMessage;
 }

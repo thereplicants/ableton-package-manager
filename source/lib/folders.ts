@@ -30,12 +30,12 @@ export async function getUserLibraryPath() {
   return path;
 }
 
-export async function getPackagesPath(userLibraryArg) {
+export async function getPackagesPath(userLibraryArg?: string) {
   const userLibraryPath = userLibraryArg ?? (await getUserLibraryPath());
   return join(userLibraryPath, 'Packages');
 }
 
-export async function getPackagesFolders(userLibraryArg) {
+export async function getPackagesFolders(userLibraryArg?: string) {
   const userLibraryPath = userLibraryArg ?? (await getUserLibraryPath());
   const packagesPath = await getPackagesPath(userLibraryPath);
 
