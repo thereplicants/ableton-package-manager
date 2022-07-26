@@ -44,6 +44,7 @@ npm install
 Install a global link to it (so `apm` commands refer to the development version):
 
 ```sh
+npm run build # Run the build at least once first so there is something to link
 npm install -g
 ```
 
