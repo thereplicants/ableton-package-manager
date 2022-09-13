@@ -19,7 +19,7 @@
     "watch": "watch 'npm run build' source"
   },
   "files": [
-    "dist/**.js"
+    "dist/**/*.js"
   ],
   "dependencies": {
     "@types/semver": "^7.3.10",
