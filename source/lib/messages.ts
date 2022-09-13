@@ -15,6 +15,10 @@ export const helpText = `
       Ableton packages in ~/Dropbox/Music/Live User Library/Packages
       Name      URL                                        Path
       max-node  https://github.com/thereplicants/max-node  ~/Dropbox/Music/Live User Library/Packages/max-node
+
+    $ apm version
+      Ableton Package Manager
+      apm version x.y.z
 `;
 
 export const installSuccessInstructions = `

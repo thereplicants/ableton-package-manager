@@ -9,8 +9,5 @@ test('show help when called with no arguments', (t) => {
 
   const lastLine = lastFrame()?.split('\n').slice(-2, -1)[0];
 
-  t.is(
-    lastLine,
-    chalk`    Installed \`thereplicants/max-node\` in \`User Library/Packages/\``,
-  );
+  t.is(lastLine, chalk`      apm version x.y.z`);
 });
