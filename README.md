@@ -44,7 +44,6 @@ npm install
 Install a global link to it (so `apm` commands refer to the development version):
 
 ```sh
-npm run build # Run the build at least once first so there is something to link
 npm install -g
 ```
 
@@ -56,4 +55,4 @@ npm run watch
 
 ## Roadmap
 
-The next idea is to have an `apm.yml` file in an Ableton Set, so you can run apm install there and get all the dependencies. This would allow collaborators to ensure they have the right dependencies. There should also be a Max for Live .amxd device that allows collaborators to install without the CLI.
+The next idea is to have an `apm.yml` file in an Ableton Set, so you can run apm install there and get all the dependencies. This would allow collaborators to ensure they have the right dependencies. There should also be a Max for Live .amxd device that allows collaborators to install without the CLI. A fun long-term idea would be to allow installing Max for Live devices from maxforlive.com. See also: https://github.com/hems/lpm.
