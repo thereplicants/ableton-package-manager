@@ -10,10 +10,11 @@
   },
   "scripts": {
     "build": "tsc && chmod +x dist/cli.js",
-    "start": "npm run build && dist/cli.js",
-    "pretest": "npm run build",
-    "lint": "eslint source",
     "format": "eslint --fix source",
+    "lint": "eslint source",
+    "prepare": "npm run build",
+    "pretest": "npm run build",
+    "start": "npm run build && dist/cli.js",
     "test": "npm run lint && ava",
     "watch": "watch 'npm run build' source"
   },
