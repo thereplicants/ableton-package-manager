@@ -2,8 +2,6 @@
 
 `apm` is a package manager for Ableton Live to manage Max for Live dependencies and Node for Max patches
 
-> This CLI uses [ink](https://github.com/vadimdemedes/ink)
-
 ## Install
 
 ```sh
@@ -35,6 +33,8 @@ $ apm --help
 
 ## Contributing
 
+> Note: This tool is built with [ink](https://github.com/vadimdemedes/ink) for a React-based CLI
+
 Clone this repo, then install dependencies:
 
 ```sh
@@ -53,8 +53,9 @@ Build and watch for changes:
 npm run watch
 ```
 
-## Roadmap
+## Future ideas
 
-The near-term roadmap is to add Windows support.
-
-The next idea is to have an `apm.yml` file in an Ableton Set, so you can run apm install there and get all the dependencies. This would allow collaborators to ensure they have the right dependencies. There should also be a Max for Live .amxd device that allows collaborators to install without the CLI. A fun long-term idea would be to allow installing Max for Live devices from maxforlive.com. See also: https://github.com/hems/lpm.
+- Add Windows support.
+- Add support for an `apm.yml` file in an Ableton Set, so you can run `apm install` there and get all the dependencies (so collaborators can ensure they have the right dependencies).
+- Create a Max for Live .amxd device that allows collaborators to install without the CLI.
+- A fun long-term idea would be to allow installing Max for Live devices from maxforlive.com. See also: https://github.com/hems/lpm.
